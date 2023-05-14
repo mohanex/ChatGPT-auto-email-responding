@@ -8,3 +8,6 @@ password = getpass.getpass("Password :")
 
 M.login(email,password)
 
+print(M.list())                       # print various inboxes
+status, messages = M.select("INBOX")  # select inbox
+
