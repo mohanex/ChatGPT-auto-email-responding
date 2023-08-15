@@ -83,3 +83,17 @@ if __name__ == "__main__":
     mail = imaplib.IMAP4_SSL(imap_server)
     mail.login(email_username, email_password)
 
+    for email_id in email_ids:
+        subject, from_email, body = get_email_content(email_id)
+        
+        # Extract the user's message from the email body
+        user_message = re.sub(r"(?i)(?:\s*re:\s*)?{}".format(re.escape(subject)), "", body).strip()
+
+        # Generate and send reply
+        reply = send_reply(from_email, user_message)
+        print("Generated reply:", reply)
+
+        # Mark the email as read
+        mail.store(email_id, "+FLAGS", "\\Seen")
+
+    mail.logout()
