@@ -39,3 +39,22 @@ def fetch_unread_emails():
     email_ids = data[0].split()
     return email_ids
 
+def get_email_content(email_id):
+    _, data = mail.fetch(email_id, "(RFC822)")
+    msg = email.message_from_bytes(data[0][1])
+
+    subject = msg["subject"]
+    from_email = msg["from"]
+    body = ""
+
+    if msg.is_multipart():
+        for part in msg.walk():
+            content_type = part.get_content_type()
+            if content_type == "text/plain":
+                body = part.get_payload(decode=True).decode()
+                break
+    else:
+        body = msg.get_payload(decode=True).decode()
+
+    return subject, from_email, body
+
