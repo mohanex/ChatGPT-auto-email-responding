@@ -58,3 +58,28 @@ def get_email_content(email_id):
 
     return subject, from_email, body
 
+def send_reply(email_address, message):
+    # Generate response using ChatGPT API
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}",
+    }
+
+    data = {
+        "messages": [{"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": message}],
+    }
+
+    response = requests.post(api_url, json=data, headers=headers)
+    response_data = response.json()
+    reply = response_data["choices"][0]["message"]["content"]
+
+    # Send the reply email
+    # You'll need to implement the email sending part here using your preferred email library
+
+# Main script
+if __name__ == "__main__":
+    email_ids = fetch_unread_emails()
+    mail = imaplib.IMAP4_SSL(imap_server)
+    mail.login(email_username, email_password)
+
