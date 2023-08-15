@@ -10,7 +10,7 @@ M.login(email,password)
 
 print(M.list())                       # print various inboxes
 status, messages = M.select("INBOX")  # select inbox"""
-
+"""Trying new way to do it"""
 import imaplib
 import email
 import re
