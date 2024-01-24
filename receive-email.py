@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#The code is not yet read for implementation
+
 """import imaplib
 import getpass
 
